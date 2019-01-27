@@ -17,7 +17,14 @@ import com.example.sudo.hardtogetup.adapters.AlarmRecyclerAdapter;
 import com.example.sudo.hardtogetup.adapters.DrawerRecyclerAdapter;
 import com.example.sudo.hardtogetup.models.Alarm;
 import com.example.sudo.hardtogetup.models.MathProblem;
+import com.example.sudo.hardtogetup.utils.AlarmJobService;
 import com.example.sudo.hardtogetup.utils.UIUtils;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.RetryStrategy;
+import com.firebase.jobdispatcher.Trigger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,15 +58,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private AlarmRecyclerAdapter alarmRecyclerAdapter;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     Realm realm;
-
+    FirebaseJobDispatcher dispatcher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         realm = Realm.getDefaultInstance();
-        UIUtils.setGradientBackground(this, R.color.orange_warm, R.color.yellow, findViewById(R.id.dlDrawer));
-        UIUtils.setGradientBackground(this, R.color.tirkizno_light, R.color.blue_dark, findViewById(R.id.rlDrawer));
+        dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
         setUi();
     }
 
@@ -79,6 +85,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         rvAlarms.setAdapter(alarmRecyclerAdapter);
 
         setupDrawer();
+
     }
 
     private void getAlarmsFromRealmAndSetAlarmList() {

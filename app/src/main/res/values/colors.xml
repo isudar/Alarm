@@ -13,5 +13,6 @@
     <color name="tirkizno_light">#17EAD9</color>
     <color name="blue_dark">#6078EA</color>
     <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
 
 </resources>

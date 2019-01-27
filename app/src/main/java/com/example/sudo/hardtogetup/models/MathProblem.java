@@ -4,20 +4,22 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 public class MathProblem extends RealmObject {
-    @PrimaryKey
-    private int id;
+
     private String problem;
     private String answer;
     private String wrongAnswer1;
     private String wrongAnswer2;
     private String wrongAnswer3;
+    public MathProblem(){
 
-    public int getId() {
-        return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public MathProblem(String problem, String answer, String wrongAnswer1, String wrongAnswer2, String wrongAnswer3) {
+        this.problem = problem;
+        this.answer = answer;
+        this.wrongAnswer1 = wrongAnswer1;
+        this.wrongAnswer2 = wrongAnswer2;
+        this.wrongAnswer3 = wrongAnswer3;
     }
 
     public String getProblem() {

@@ -1,5 +1,8 @@
 package com.example.sudo.hardtogetup.models;
 
+import java.util.ArrayList;
+
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -7,6 +10,24 @@ public class Alarm extends RealmObject {
 
     private int hour;
     private int minutes;
+    private String tagMillis;
+    private RealmList<Boolean> alarmDays;
+
+    public RealmList<Boolean> getAlarmDays() {
+        return alarmDays;
+    }
+
+    public void setAlarmDays(RealmList<Boolean> alarmDays) {
+        this.alarmDays = alarmDays;
+    }
+
+    public String getTagMillis() {
+        return tagMillis;
+    }
+
+    public void setTagMillis(String tagMillis) {
+        this.tagMillis = tagMillis;
+    }
 
     public int getHour() {
         return hour;

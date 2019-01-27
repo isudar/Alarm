@@ -1,41 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="250dp"
-    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/shape_white_rectangle"
+    android:id="@+id/rlAlarm"
+    android:layout_width="250dp"
+    android:layout_height="70dp"
     android:layout_margin="8dp">
 
-    <TextView
-        android:id="@+id/tvHour"
-        android:layout_width="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_toStartOf="@id/tvDvotocka"
-        android:layout_marginEnd="16dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/rlTime"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_semibold"
-        android:textSize="40sp"
-        tools:text="5" />
+        android:background="@drawable/shape_white_rectangle">
 
-    <TextView
-        android:id="@+id/tvMinutes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp"
-        android:layout_toEndOf="@id/tvDvotocka"
-        android:layout_marginStart="16dp"
-        android:textSize="40sp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/poppins_semibold"
-        tools:text="35" />
+        <TextView
+            android:id="@+id/tvHour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toStartOf="@id/tvDvotocka"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="40sp"
+            tools:text="5" />
 
-    <TextView
-        android:id="@+id/tvDvotocka"
+        <TextView
+            android:id="@+id/tvMinutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toEndOf="@id/tvDvotocka"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="40sp"
+            tools:text="35" />
+
+        <TextView
+            android:id="@+id/tvDvotocka"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/dvotocka"
+            android:textSize="40sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:textSize="40sp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="@string/dvotocka"/>
+        android:layout_alignParentBottom="true"
+        android:id="@+id/llRepeatingDays"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/shape_green_rectangle"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvMonday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="5dp"
+            android:visibility="invisible"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/shape_white_rectangle"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="M"
+            android:textColor="@color/orange_warm" />
+
+        <TextView
+
+            android:id="@+id/tvTuesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:visibility="invisible"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/shape_white_rectangle"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="T"
+            android:textColor="@color/orange_warm" />
+
+        <TextView
+            android:id="@+id/tvWednsday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="3dp"
+            android:visibility="invisible"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/shape_white_rectangle"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="W"
+            android:textColor="@color/orange_warm" />
+
+        <TextView
+            android:id="@+id/tvThursday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/shape_white_rectangle"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="T"
+            android:textColor="@color/orange_warm" />
+
+        <TextView
+            android:id="@+id/tFriday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="3dp"
+            android:visibility="invisible"
+            android:background="@drawable/shape_white_rectangle"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="F"
+            android:textColor="@color/orange_warm" />
+
+        <TextView
+            android:id="@+id/tvSaturday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="5dp"
+            android:visibility="invisible"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/shape_white_rectangle"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="S"
+            android:textColor="@color/orange_warm" />
+
+        <TextView
+            android:id="@+id/tvSunday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="5dp"
+            android:visibility="invisible"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/shape_white_rectangle"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="S"
+            android:textColor="@color/orange_warm" />
+    </LinearLayout>
 </RelativeLayout>

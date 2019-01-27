@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue_dark"
     tools:context=".activity.NewAlarmActivity">
 
     <ImageView
@@ -11,9 +12,10 @@
         android:layout_height="30dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:src="@drawable/ic_close" />
+
     <NumberPicker
         android:id="@+id/npHourPicker"
         android:layout_width="50dp"
@@ -21,16 +23,105 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="120dp"></NumberPicker>
+        android:layout_marginTop="120dp"
+        android:theme="@style/AppTheme.Picker"></NumberPicker>
 
     <NumberPicker
         android:id="@+id/npMinutesPicker"
         android:layout_width="50dp"
         android:layout_height="100dp"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="120dp"
         android:layout_marginEnd="100dp"
-        android:layout_marginTop="120dp"></NumberPicker>
+        android:theme="@style/AppTheme.Picker"></NumberPicker>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/npHourPicker"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/cbMonday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:button="@null"
+            android:padding="8dp"
+            android:background="@drawable/check_box_days_background"
+            android:text="M"
+            android:textSize="20sp" />
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/cbTuesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/check_box_days_background"
+            android:layout_marginEnd="10dp"
+            android:button="@null"
+            android:padding="8dp"
+            android:text="T"
+            android:textSize="20sp" />
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/cbWednesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/check_box_days_background"
+            android:layout_marginEnd="10dp"
+            android:button="@null"
+            android:padding="8dp"
+            android:text="W"
+            android:textSize="20sp" />
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/cbThursday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/check_box_days_background"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:button="@null"
+            android:padding="8dp"
+            android:text="T"
+            android:textSize="20sp" />
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/cbFriday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/check_box_days_background"
+            android:layout_marginEnd="10dp"
+            android:button="@null"
+            android:padding="8dp"
+            android:text="F"
+            android:textSize="20sp" />
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/cbSaturday"
+            android:layout_width="wrap_content"
+            android:background="@drawable/check_box_days_background"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:button="@null"
+            android:padding="8dp"
+            android:text="S"
+            android:textSize="20sp" />
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/cbSunday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/check_box_days_background"
+            android:layout_marginEnd="10dp"
+            android:button="@null"
+            android:padding="8dp"
+            android:text="S"
+            android:textSize="20sp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/bSaveAlarm"
@@ -39,5 +130,5 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="130dp"
-        android:text="Save alarm"/>
+        android:text="Save alarm" />
 </RelativeLayout>

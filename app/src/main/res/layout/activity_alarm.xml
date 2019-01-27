@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_white_rectangle"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="SUDOOO"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <RelativeLayout
+        android:id="@+id/rlAnswerOne"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/tvTask"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/shape_white_rectangle"
+        android:backgroundTint="@color/blue_dark">
+
+        <TextView
+            android:id="@+id/tvAnswerOne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlAnswerTwo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/tvTask"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/shape_white_rectangle"
+        android:backgroundTint="@color/blue_dark">
+
+        <TextView
+            android:id="@+id/tvAnswerTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlAnswerThree"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/rlAnswerOne"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/shape_white_rectangle"
+        android:backgroundTint="@color/blue_dark">
+        <TextView
+            android:id="@+id/tvAnswerThree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlAnswerFour"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/rlAnswerTwo"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/shape_white_rectangle"
+        android:backgroundTint="@color/blue_dark">
+
+        <TextView
+            android:id="@+id/tvAnswerFour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+
+
+
+
+
+
+</RelativeLayout>
+
+
