@@ -33,7 +33,6 @@ dependencies {
 
     implementation 'com.jakewharton:butterknife:8.0.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.0.1'
-    implementation 'co.revely:gradient:1.0.0'
 
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
 

@@ -39,6 +39,7 @@ public class AlarmRecyclerAdapter extends RecyclerView.Adapter<AlarmRecyclerAdap
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         String hour = String.valueOf(alarmList.get(position).getHour());
         String minutes = String.valueOf(alarmList.get(position).getMinutes());
+        //pišemo 0 ako je broj od 0-9
         if (hour.length() == 1) {
             hour = "0" + hour;
         }
@@ -49,9 +50,10 @@ public class AlarmRecyclerAdapter extends RecyclerView.Adapter<AlarmRecyclerAdap
         viewHolder.tvMinutes.setText(minutes);
         long tagMillis =Long.valueOf(alarmList.get(position).getTagMillis());
         if (tagMillis < System.currentTimeMillis()){
-            viewHolder.rlTime.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+            viewHolder.rlTime.getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);
         }
 
+        //ponavljajuci alarm stavljamo vidljivost na dane kojima se ponavlja
         if (alarmList.get(position).getAlarmDays().get(0))
             viewHolder.tvMonday.setVisibility(View.VISIBLE);
         if (alarmList.get(position).getAlarmDays().get(1))
@@ -117,6 +119,7 @@ public class AlarmRecyclerAdapter extends RecyclerView.Adapter<AlarmRecyclerAdap
         @Override
         public boolean onLongClick(View view) {
 
+            //brisanje alarma iz liste moramo obrisati i iz realma
             String tagMillis = alarmList.get(getAdapterPosition()).getTagMillis();
             alarmList.remove(getAdapterPosition());
             notifyItemRemoved(getAdapterPosition());

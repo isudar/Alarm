@@ -19,7 +19,6 @@ import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.RetryStrategy;
 import com.firebase.jobdispatcher.Trigger;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -37,8 +36,6 @@ public class NewAlarmActivity extends AppCompatActivity implements View.OnClickL
     NumberPicker npMinutesPicker;
     @BindView(R.id.bSaveAlarm)
     Button bSaveAlarm;
-
-    FirebaseJobDispatcher dispatcher;
     @BindView(R.id.cbMonday)
     AppCompatCheckBox cbMonday;
     @BindView(R.id.cbTuesday)
@@ -54,7 +51,10 @@ public class NewAlarmActivity extends AppCompatActivity implements View.OnClickL
     @BindView(R.id.cbSunday)
     AppCompatCheckBox cbSunday;
 
+
+    FirebaseJobDispatcher dispatcher;
     long difference;
+    long nextAlarm = 2141472000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,11 +85,11 @@ public class NewAlarmActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+
     private void saveAlarmAndExit() {
         int hour = npHourPicker.getValue();
         int minutes = npMinutesPicker.getValue();
         RealmList<Boolean> alarmDays = new RealmList<>();
-
         alarmDays.add(cbMonday.isChecked());
         alarmDays.add(cbTuesday.isChecked());
         alarmDays.add(cbWednesday.isChecked());
@@ -100,23 +100,26 @@ public class NewAlarmActivity extends AppCompatActivity implements View.OnClickL
 
         Long tagMillis = System.currentTimeMillis();
         String  tagMillisString = String.valueOf(System.currentTimeMillis());
-        if (cbMonday.isChecked())
-            createAlarmByDay(hour, minutes, tagMillisString, 2);
-        if (cbTuesday.isChecked())
-            createAlarmByDay(hour, minutes, tagMillisString, 3);
-        if (cbWednesday.isChecked())
-            createAlarmByDay(hour, minutes, tagMillisString, 4);
-        if (cbThursday.isChecked())
-            createAlarmByDay(hour, minutes, tagMillisString, 5);
-        if (cbFriday.isChecked())
-            createAlarmByDay(hour, minutes, tagMillisString, 6);
-        if (cbSaturday.isChecked())
-            createAlarmByDay(hour, minutes, tagMillisString, 7);
+//postavljamo alarme na dane kad je checked
         if (cbSunday.isChecked())
             createAlarmByDay(hour, minutes, tagMillisString, 1);
+        if (cbSaturday.isChecked())
+            createAlarmByDay(hour, minutes, tagMillisString, 7);
+        if (cbFriday.isChecked())
+            createAlarmByDay(hour, minutes, tagMillisString, 6);
+        if (cbThursday.isChecked())
+            createAlarmByDay(hour, minutes, tagMillisString, 5);
+        if (cbWednesday.isChecked())
+            createAlarmByDay(hour, minutes, tagMillisString, 4);
+        if (cbTuesday.isChecked())
+            createAlarmByDay(hour, minutes, tagMillisString, 3);
+        if (cbMonday.isChecked())
+            createAlarmByDay(hour, minutes, tagMillisString, 2);
 
         if (!cbMonday.isChecked() && !cbTuesday.isChecked() && !cbWednesday.isChecked() && !cbThursday.isChecked() && !cbFriday.isChecked() && !cbSaturday.isChecked() && !cbSunday.isChecked())
             createAlarm(hour, minutes, tagMillisString);
+
+        //spremanje alarma u bazu
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         Alarm alarm = new Alarm();
@@ -127,21 +130,24 @@ public class NewAlarmActivity extends AppCompatActivity implements View.OnClickL
         realm.copyToRealm(alarm);
         realm.commitTransaction();
         realm.close();
-        long second = (difference / 1000) % 60;
-        long minute = (difference / (1000 * 60)) % 60;
-        long hours = (difference / (1000 * 60 * 60)) % 24;
-        long days = (difference / (1000 * 60 * 60 * 24)) % 7;
+
+        //logika za koliko će se prvi alarm oglasiti
+        long second = (nextAlarm / 1000) % 60;
+        long minute = (nextAlarm / (1000 * 60)) % 60;
+        long hours = (nextAlarm / (1000 * 60 * 60)) % 24;
+        long days = (nextAlarm / (1000 * 60 * 60 * 24)) % 7;
         String time = String.format("%02d days %02d hours %02d  minutes %02d seconds ",days, hours, minute, second);
         Toast.makeText(this, "Alarm will start for: " + time, Toast.LENGTH_LONG).show();
         finish();
     }
 
+    //metoda za postavljanje po danima iz checkboxa
     private void createAlarmByDay(int hour, int minutes, String tagMillis, int day) {
         Calendar now = Calendar.getInstance();
         Calendar alarmTime = Calendar.getInstance();
-        if (day < now.get(Calendar.DAY_OF_WEEK) || now.get(Calendar.DAY_OF_WEEK) == 1)
+        //ako je odabrani dan manji od trenutnog dana ili je trenutni dan nedjelja onda povećaj tjedan za 1
+        if (day <= now.get(Calendar.DAY_OF_WEEK) || now.get(Calendar.DAY_OF_WEEK) == 1)
             alarmTime.add(Calendar.WEEK_OF_YEAR, +1);
-
         alarmTime.set(Calendar.DAY_OF_WEEK, day);
         alarmTime.set(Calendar.HOUR_OF_DAY, hour);
         alarmTime.set(Calendar.MINUTE, minutes);
@@ -151,7 +157,9 @@ public class NewAlarmActivity extends AppCompatActivity implements View.OnClickL
         difference = alarmTime.getTimeInMillis() - now.getTimeInMillis();
         int startSeconds = (int) (difference / 1000); // tell the start seconds
         int endSeconds = startSeconds + 1; // within one seconds
-
+        if (nextAlarm > difference)
+            nextAlarm = difference;
+        //postavlljanje alarma i servisa koji se izvršava na alarm
         Job bJob = dispatcher.newJobBuilder()
                 .setService(AlarmJobService.class)
                 .setTag(tagMillis)
@@ -163,25 +171,26 @@ public class NewAlarmActivity extends AppCompatActivity implements View.OnClickL
                 .build();
         dispatcher.mustSchedule(bJob);
 
+
     }
 
+    // postavljanje prvog mogućeg alarma ako je alarm prije trenutnog vremena danas tada povečaj jedan dan i postavi alarm
     private void createAlarm(int hour, int minutes, String tagMillis) {
-
         Calendar now = Calendar.getInstance();
         Calendar alarmTime = Calendar.getInstance();
         alarmTime.set(Calendar.HOUR_OF_DAY, hour);
         alarmTime.set(Calendar.MINUTE, minutes);
-        alarmTime.clear(Calendar.SECOND);
-        alarmTime.clear(Calendar.MILLISECOND);
-
+        alarmTime.set(Calendar.SECOND,0);
+        alarmTime.set(Calendar.MILLISECOND,0);
 
         difference = alarmTime.getTimeInMillis() - now.getTimeInMillis();
 
-        if (difference < 0) {
-            alarmTime.add(Calendar.DAY_OF_MONTH, 1);
+        if (difference <= 0) {
+            alarmTime.add(Calendar.DAY_OF_YEAR, 1);
             difference = alarmTime.getTimeInMillis() - now.getTimeInMillis();
         }
 
+        nextAlarm = difference;
         int startSeconds = (int) (difference / 1000); // tell the start seconds
         int endSeconds = startSeconds + 1; // within one seconds
 

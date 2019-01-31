@@ -1,6 +1,5 @@
 package com.example.sudo.hardtogetup.adapters;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,8 +28,8 @@ public class DrawerRecyclerAdapter extends RecyclerView.Adapter<DrawerRecyclerAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.tvMathProblem.setText(mathProblemList.get(i).getProblem());
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+        viewHolder.tvMathProblem.setText(mathProblemList.get(position).getProblem());
     }
 
     @Override

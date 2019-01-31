@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tvTask"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/shape_white_rectangle"
         android:fontFamily="@font/poppins_semibold"
-        android:text="SUDOOO"
         android:textColor="@color/black"
-        android:textSize="16sp" />
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <RelativeLayout
         android:id="@+id/rlAnswerOne"
@@ -20,13 +24,19 @@
         android:layout_below="@id/tvTask"
         android:layout_marginTop="40dp"
         android:background="@drawable/shape_white_rectangle"
-        android:backgroundTint="@color/blue_dark">
+        android:backgroundTint="@color/blue_dark"
+        app:layout_constraintEnd_toStartOf="@id/rlAnswerTwo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTask">
 
         <TextView
             android:id="@+id/tvAnswerOne"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -34,17 +44,21 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_below="@id/tvTask"
-        android:layout_marginStart="200dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/shape_white_rectangle"
-        android:backgroundTint="@color/blue_dark">
+        android:backgroundTint="@color/blue_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/rlAnswerOne"
+        app:layout_constraintTop_toBottomOf="@id/tvTask">
 
         <TextView
             android:id="@+id/tvAnswerTwo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
-
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -54,14 +68,19 @@
         android:layout_below="@id/rlAnswerOne"
         android:layout_marginTop="40dp"
         android:background="@drawable/shape_white_rectangle"
-        android:backgroundTint="@color/blue_dark">
+        android:backgroundTint="@color/blue_dark"
+        app:layout_constraintEnd_toStartOf="@id/rlAnswerTwo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rlAnswerOne">
+
         <TextView
             android:id="@+id/tvAnswerThree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
-
-
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -69,24 +88,21 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_below="@id/rlAnswerTwo"
-        android:layout_marginStart="200dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/shape_white_rectangle"
-        android:backgroundTint="@color/blue_dark">
+        android:backgroundTint="@color/blue_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/rlAnswerThree"
+        app:layout_constraintTop_toBottomOf="@id/rlAnswerTwo">
 
         <TextView
             android:id="@+id/tvAnswerFour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            />
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            tools:text="20" />
     </RelativeLayout>
-
-
-
-
-
-
-</RelativeLayout>
-
-
+</android.support.constraint.ConstraintLayout>

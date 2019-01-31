@@ -17,18 +17,11 @@ import com.example.sudo.hardtogetup.adapters.AlarmRecyclerAdapter;
 import com.example.sudo.hardtogetup.adapters.DrawerRecyclerAdapter;
 import com.example.sudo.hardtogetup.models.Alarm;
 import com.example.sudo.hardtogetup.models.MathProblem;
-import com.example.sudo.hardtogetup.utils.AlarmJobService;
-import com.example.sudo.hardtogetup.utils.UIUtils;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
-import com.firebase.jobdispatcher.Job;
-import com.firebase.jobdispatcher.Lifetime;
-import com.firebase.jobdispatcher.RetryStrategy;
-import com.firebase.jobdispatcher.Trigger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.internal.Utils;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -53,7 +46,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.dlDrawer)
     DrawerLayout dlDrawer;
 
-
     private DrawerRecyclerAdapter drawerRecyclerAdapter;
     private AlarmRecyclerAdapter alarmRecyclerAdapter;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -73,21 +65,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         ivNewAlarm.setOnClickListener(this);
         ivAddNewProblem.setOnClickListener(this);
         ivHamburger.setOnClickListener(this);
-
         RecyclerView.LayoutManager mLayoutManger = new LinearLayoutManager(this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rvMathProblems.setLayoutManager(mLayoutManger);
         drawerRecyclerAdapter = new DrawerRecyclerAdapter();
         rvMathProblems.setAdapter(drawerRecyclerAdapter);
-
         rvAlarms.setLayoutManager(layoutManager);
         alarmRecyclerAdapter = new AlarmRecyclerAdapter();
         rvAlarms.setAdapter(alarmRecyclerAdapter);
 
         setupDrawer();
-
     }
 
+    //dohvaćanje alarma iz baze i postavljanja u listu
     private void getAlarmsFromRealmAndSetAlarmList() {
         if (realm.isClosed()) {
             realm = Realm.getDefaultInstance();
@@ -100,6 +90,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //dohvaćanje problema za draver
     private void getProblemsFromRealmAndSetItToDrawer() {
         if (realm.isClosed()) {
             realm = Realm.getDefaultInstance();
@@ -110,7 +101,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         if (!mathProblems.isEmpty()) {
             drawerRecyclerAdapter.setAdapterList(mathProblems);
         }
-
     }
 
     private void setupDrawer() {
@@ -119,7 +109,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 super.onDrawerOpened(drawerView);
                 invalidateOptionsMenu();
             }
-
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()

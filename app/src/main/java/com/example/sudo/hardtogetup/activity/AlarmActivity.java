@@ -22,7 +22,6 @@ import io.realm.Realm;
 
 public class AlarmActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static final String MILLIS_TAG = "MILLIS_TAG";
     @BindView(R.id.tvTask)
     TextView tvTask;
     @BindView(R.id.tvAnswerOne)
@@ -52,9 +51,13 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_alarm);
         ButterKnife.bind(this);
         Realm.init(getApplicationContext());
+        //audiomanager koji je loop i koji ponavlja pjesmu sve dok se ne odgovori točno na pitanje
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-         mediaPlayer = MediaPlayer.create(this, R.raw.song);
+        mediaPlayer = MediaPlayer.create(this, R.raw.song);
+        mediaPlayer.setLooping(true);
         mediaPlayer.start();
+
+        //ukoliko je uređaj u silent modu programski mu palimo zvučnike
         Thread thread = new Thread() {
             @Override
             public void run() {
@@ -70,25 +73,26 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         };
-
         thread.start();
+       // dohvaćamo sve podatke iz realma
         mathProblems.addAll(RealmUtils.getAllMAthProblems());
-
         rlAnswerOne.setOnClickListener(this);
         rlAnswerTwo.setOnClickListener(this);
         rlAnswerThree.setOnClickListener(this);
         rlAnswerFour.setOnClickListener(this);
-
+//metoda za stvaranje pitanja
         getQuestion();
-
-
     }
 
     private void getQuestion() {
+
         Random randomNumber = new Random();
+        //random trebamo da dohvatimo random pitanje za screen
         randomQuestionNumber = randomNumber.nextInt(mathProblems.size());
+        //random place služi za postavljanje
         int randomPlace = randomNumber.nextInt(3);
 
+        //ovisno koji je random place tako i postavljamo odgovore
         tvTask.setText(mathProblems.get(randomQuestionNumber).getProblem());
         switch (randomPlace) {
             case 0:
@@ -133,9 +137,9 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    //provjera odgovora
     private void checkAnswer(TextView tvClickedAnswer) {
         if (tvClickedAnswer.getText().toString().equals( mathProblems.get(randomQuestionNumber).getAnswer())){
-
             finish();
         }
         else {

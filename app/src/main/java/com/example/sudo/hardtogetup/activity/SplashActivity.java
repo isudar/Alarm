@@ -17,7 +17,6 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -25,7 +24,8 @@ public class SplashActivity extends AppCompatActivity {
     @BindView(R.id.rlRootActivity)
     RelativeLayout rlRootActivity;
     SharedPreferences sharedPreferences;
-
+    private Handler handler;
+    private Runnable runnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,8 @@ public class SplashActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Realm.init(this);
         configureLocale();
+
+        //dohvača se iz shared prefsa boolean dal korisnik prvi put ulazi u app
         sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
         if (!sharedPreferences.getBoolean("isRun", false)) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -41,7 +43,9 @@ public class SplashActivity extends AppCompatActivity {
             editor.apply();
             saveDefaultProblemToRealm();
         }
-        new Handler().postDelayed(new Runnable() {
+        handler = new Handler();
+//load home after two seconds
+        handler.postDelayed(runnable = new Runnable() {
             @Override
             public void run() {
                 openHomeIntent();
@@ -49,14 +53,16 @@ public class SplashActivity extends AppCompatActivity {
         }, 2000);
     }
 
+    //konfiguracija lokalizacije zbog prvog dana u tjednu u hr je ponedjeljak
     private void configureLocale() {
         Locale locale = new Locale("hr", "HR");
         Locale.setDefault(locale);
         Configuration configuration = this.getResources().getConfiguration();
         configuration.setLocale(locale);
-        this.getResources().updateConfiguration(configuration,this.getResources().getDisplayMetrics());
+        this.getResources().updateConfiguration(configuration, this.getResources().getDisplayMetrics());
     }
 
+    // kada korisnik prvi puta ulazi u app generira se default pitanja za bazu potrebno je samo jednom izvršiti
     private void saveDefaultProblemToRealm() {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
@@ -77,5 +83,11 @@ public class SplashActivity extends AppCompatActivity {
         Intent openHome = new Intent(this, HomeActivity.class);
         startActivity(openHome);
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacks(runnable);
     }
 }

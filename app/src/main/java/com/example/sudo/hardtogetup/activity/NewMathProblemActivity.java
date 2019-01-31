@@ -1,8 +1,10 @@
 package com.example.sudo.hardtogetup.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,7 +16,6 @@ import com.example.sudo.hardtogetup.models.MathProblem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 import static com.example.sudo.hardtogetup.utils.UIUtils.showSnackBar;
 
@@ -43,6 +44,7 @@ public class NewMathProblemActivity extends AppCompatActivity implements View.On
         setContentView(R.layout.activity_new_math_problem);
         ButterKnife.bind(this);
         setUi();
+        etMathProblem.requestFocus();
     }
 
     private void setUi() {
@@ -62,16 +64,21 @@ public class NewMathProblemActivity extends AppCompatActivity implements View.On
         }
     }
 
+    //provjera dal je sve uneseno
     void validateEntries() {
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         if (etMathProblem.getText().toString().isEmpty() || etCorrectAnswer.getText().toString().isEmpty() || etWrongAnswer1.getText().toString().isEmpty()
                 || etWrongAnswer2.getText().toString().isEmpty() || etWrongAnswer3.getText().toString().isEmpty())
             showSnackBar(view, getString(R.string.enter_all_data));
         else
-            saveDataToRealmAndEit();
+            saveDataToRealmAndExit();
 
     }
 
-    private void saveDataToRealmAndEit() {
+    //spremanje podataka
+    private void saveDataToRealmAndExit() {
+
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         MathProblem mathProblem = new MathProblem();
