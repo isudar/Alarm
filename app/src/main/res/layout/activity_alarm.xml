@@ -5,29 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvTask"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/shape_white_rectangle"
-        android:fontFamily="@font/poppins_semibold"
-        android:textColor="@color/black"
-        android:textSize="30sp"
+    <RelativeLayout
+        android:id="@+id/rlTask"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_width="wrap_content"
+        android:background="@drawable/shape_white_rectangle"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tvTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/black"
+            android:layout_marginStart="16dp"
+            android:textSize="30sp" />
+
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rlAnswerOne"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_below="@id/tvTask"
+        android:layout_below="@id/rlTask"
         android:layout_marginTop="40dp"
         android:background="@drawable/shape_white_rectangle"
         android:backgroundTint="@color/blue_dark"
         app:layout_constraintEnd_toStartOf="@id/rlAnswerTwo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTask">
+        app:layout_constraintTop_toBottomOf="@id/rlTask">
 
         <TextView
             android:id="@+id/tvAnswerOne"
@@ -43,13 +51,13 @@
         android:id="@+id/rlAnswerTwo"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_below="@id/tvTask"
+        android:layout_below="@id/rlTask"
         android:layout_marginTop="40dp"
         android:background="@drawable/shape_white_rectangle"
         android:backgroundTint="@color/blue_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/rlAnswerOne"
-        app:layout_constraintTop_toBottomOf="@id/tvTask">
+        app:layout_constraintTop_toBottomOf="@id/rlTask">
 
         <TextView
             android:id="@+id/tvAnswerTwo"
