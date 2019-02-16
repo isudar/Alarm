@@ -65,7 +65,6 @@ public class DrawerRecyclerAdapter extends RecyclerView.Adapter<DrawerRecyclerAd
         public boolean onLongClick(View view) {
             //brisanje alarma iz liste moramo obrisati i iz realma
             if (getAdapterPosition() > 3) {
-
                 String problem = mathProblemList.get(getAdapterPosition()).getProblem();
                 mathProblemList.remove(getAdapterPosition());
                 notifyItemRemoved(getAdapterPosition());
